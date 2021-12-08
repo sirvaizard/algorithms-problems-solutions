@@ -19,7 +19,7 @@
 
 // Finishing the first task should help you accomplish the second task.
 
-const input = ['BALL', 'AREA', 'LEAD', 'LADY']
+const input = ['AREA', 'BALL', 'DEAR', 'LADY', 'LEAD', 'YARD']
 
 // O(k²) time
 function isSquareWord (words, k) {
@@ -30,8 +30,53 @@ function isSquareWord (words, k) {
     return true
 }
 
-function wordSquares (words, k) {
-    
+function insertAt (array, item, index) {
+    return [...array.slice(0, index), item, ...array.slice(index)]
 }
 
-console.log(isSquareWord(input, 4))
+
+function getWordsPermutations (words, k) {
+    if (words === null)
+        return null
+
+    const permutations = []
+
+    if (words.length === 0) {
+        permutations.push([])
+        return permutations
+    }
+
+    const head = words[0]
+    const tail = words.slice(1)
+    
+    const p = getWordsPermutations(tail, k)
+
+    for (const perm of p) {
+        for (let index = 0; index <= perm.length; index++) {
+            const c = insertAt(perm, head, index)
+            permutations.push(c)
+        }
+    }
+
+    return permutations
+}
+
+function wordSquares (words, k) {
+    const permutations = []
+
+    for (let start = 0; start + k <= words.length; start++) {
+        permutations.push(...getWordsPermutations(words.slice(start, start+k)))
+    }
+
+    const wordSquares = []
+    for (const permutation of permutations) {
+        console.log(permutation)
+        if (isSquareWord(permutation, k))
+            wordSquares.push(permutation)
+    }
+
+    return wordSquares
+}
+
+console.log(wordSquares(input, 4))
+// console.log(getWordsPermutations(input, 4))
