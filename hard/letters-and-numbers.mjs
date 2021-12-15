@@ -1,7 +1,7 @@
 // Letters and Numbers: Given an array filled with letters and numbers, find the longest subarray with
 // an equal number of letters and numbers.
 
-const example = ['A', 'B', 'A', 'A', 'A', 'B', 'B', 'B', 'A', 'B', 'A', 'A', 'B', 'B', 'A', 'A', 'A', 'A', 'A', 'A']
+const example = ['A', 8, 'g', 'q', 'T', 2, 1, 7, 'B', 9, 'q', 't', 10, 21, 'Z', 'i', 'u', 'g', 'n', 'd']
 
 function lettersAndNumbers (arr) {
     const subLetters = new Map()
@@ -10,12 +10,12 @@ function lettersAndNumbers (arr) {
     let start = 0
     let count = 0
     let max = 0
-    let curr = arr[0]
+    let isNumber = Number.isInteger(arr[0])
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === curr) {
+        if (Number.isInteger(arr[i]) === isNumber) {
             count++
         } else {
-            if (isNumber(arr[i-1])) {
+            if (Number.isInteger(arr[i-1])) {
                 subNumbers.set(count, [start, i-1])
                 if (subLetters.has(count) && count > max) {
                     max = count
@@ -28,15 +28,11 @@ function lettersAndNumbers (arr) {
             }
             count = 1
             start = i
-            curr = arr[i]
+            isNumber = Number.isInteger(arr[i])
         }
     }
 
     return [subLetters.get(max), subNumbers.get(max)]
-}
-
-function isNumber (value) {
-    return value === 'A'
 }
 
 console.log(lettersAndNumbers(example))
