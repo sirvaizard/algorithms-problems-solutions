@@ -5,7 +5,7 @@
 /**
  * Ask: ['a', 'b'] === ['b', 'a'] ?
  * 
- * O(n2^2) time
+ * O(n2^n) time
  * O(2^n) space
  */
 
