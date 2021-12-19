@@ -24,7 +24,7 @@ function isOffLimitCell(x, y) {
 }
 
 /**
- * O(n) time | O(r + c) space (without couting the array with steps)
+ * O(rc) time | O(rc) space (without couting the array with steps)
  */
 
 const failedCells = new Set()
